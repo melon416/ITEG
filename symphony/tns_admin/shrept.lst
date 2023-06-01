@@ -1,0 +1,15 @@
+# function entry points for genclntsh.sh
+
+network : snaumihi_inithostinfo
+network : snaumbg_gmt
+network : naedpwd_encrypt
+network : naumbsb_bld_singlebyte
+network : nlgh
+network : nsdhctx_establish
+network : nsdhctx_respond
+network : nsdhctx_close
+network : nsdhctx_inuse
+network : snlsmDscFromString
+network : snlsmCreate
+network : snlsmDestroy
+network : snlsmDscToString

@@ -1,0 +1,9 @@
+
+set -o vi
+
+alias ll='ls -lasF'
+alias l='ls -CF'
+
+HOSTPRE=`hostname | sed -e 's/\.fedex\.com//'`
+PS1="[$USER@$HOSTPRE \${PWD}]$ "
+export PS1
