@@ -18,10 +18,11 @@ import os
 import sys
 import warnings
 
-__all__ = ["getpass","getuser","GetPassWarning"]
+__all__ = ["getpass", "getuser", "GetPassWarning"]
 
 
-class GetPassWarning(UserWarning): pass
+class GetPassWarning(UserWarning):
+    pass
 
 
 def unix_getpass(prompt='Password: ', stream=None):
@@ -41,7 +42,7 @@ def unix_getpass(prompt='Password: ', stream=None):
     with contextlib.ExitStack() as stack:
         try:
             # Always try reading and writing directly on the tty first.
-            fd = os.open('/dev/tty', os.O_RDWR|os.O_NOCTTY)
+            fd = os.open('/dev/tty', os.O_RDWR | os.O_NOCTTY)
             tty = io.FileIO(fd, 'w+')
             stack.enter_context(tty)
             input = io.TextIOWrapper(tty)
@@ -62,7 +63,7 @@ def unix_getpass(prompt='Password: ', stream=None):
 
         if fd is not None:
             try:
-                old = termios.tcgetattr(fd)     # a copy to save
+                old = termios.tcgetattr(fd)  # a copy to save
                 new = old[:]
                 new[3] &= ~termios.ECHO  # 3 == 'lflags'
                 tcsetattr_flags = termios.TCSAFLUSH
@@ -114,8 +115,7 @@ def win_getpass(prompt='Password: ', stream=None):
 
 
 def fallback_getpass(prompt='Password: ', stream=None):
-    warnings.warn("Can not control echo on the terminal.", GetPassWarning,
-                  stacklevel=2)
+    warnings.warn("Can not control echo on the terminal.", GetPassWarning, stacklevel=2)
     if not stream:
         stream = sys.stderr
     print("Warning: Password input may be echoed.", file=stream)
@@ -162,9 +162,11 @@ def getuser():
     import pwd
     return pwd.getpwuid(os.getuid())[0]
 
+
 # Bind the name getpass to the appropriate function
 try:
     import termios
+
     # it's possible there is an incompatible termios from the
     # McMillan Installer, make sure we have a UNIX-compatible termios
     termios.tcgetattr, termios.tcsetattr
